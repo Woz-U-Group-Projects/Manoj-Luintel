@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class ProductDto {
     private Long id;
+    //@NotBlank(message="name cannot be null or balnk")
     private String name;
     private Double costPrice;
     private Double sellingPrice;

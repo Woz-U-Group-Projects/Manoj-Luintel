@@ -1,15 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import ProductTable from "./ProductTable";
 import {Button, Form, Modal} from "react-bootstrap";
-import AddProductModal from "./product/AddProductModal";
+import CustomSpinner from "./ui/CustomSpinner";
 
 const Product = (url, config) => {
     const [response, setResponse] = useState();
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
+    const [showUpdate, setShowUpdate] = useState(false);
 
     let product = {
         id: null,
@@ -23,13 +24,11 @@ const Product = (url, config) => {
 
     }
 
-
-
     useEffect(async () => {
         await axios.get("http://localhost:9000/inv/products")
             .then(response => setResponse(response.data.data))
             .catch(error => setError(error));
-
+            setLoading(false);
     },[loading]);
 
     const handleAddProduct= ()=>{
@@ -41,8 +40,8 @@ const Product = (url, config) => {
         await axios.post("http://localhost:9000/inv/product",product)
             .catch(error => setError(error))
             .finally(() => {
-                setLoading(false)
-            setShow(false)})
+                setLoading(false);
+            setShow(false);})
     };
 
     const handleChangeName=(e) =>{
@@ -86,12 +85,12 @@ const Product = (url, config) => {
         await axios.delete("http://localhost:9000/inv/product",  {params: {id: product.id}})
             .catch(error => setError(error))
             .finally(() => {
-                setLoading(false)
+                setLoading(true)
             });
     };
 
-    const handleUpdateCallBack =(product)=>{
-        console.log(product);
+    const handleUpdateCallBack =() => {
+        setLoading(true);
     };
 
     return (
@@ -100,7 +99,7 @@ const Product = (url, config) => {
                 <h1>Product List</h1>
                 <Button variant="primary" onClick={handleAddProduct}>Add Product</Button>{' '}
             </div>
-        <ProductTable products ={response} callBackDelete={handleDeleteCallBack} callBackUpdate={handleUpdateCallBack}/>
+        <ProductTable products ={response} callBackDelete={handleDeleteCallBack} handleUpdateCallBack={handleUpdateCallBack}/>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -150,7 +149,7 @@ const Product = (url, config) => {
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleSubmit}>
-                        Submit
+                        {loading?<CustomSpinner/>:"Submit"}
                     </Button>
                 </Modal.Footer>
             </Modal>
