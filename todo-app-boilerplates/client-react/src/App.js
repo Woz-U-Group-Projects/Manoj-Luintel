@@ -1,9 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import {Link, Route} from "react-router-dom";
-import Product from "./Components/Product";
-import PurchaseOrder from "./Components/PurchaseOrder";
-import SalesOrder from "./Components/SalesOrder";
+import Product from "./Components/product/Product";
+import PurchaseOrder from "./Components/purchaseOrder/PurchaseOrder";
+import SalesOrder from "./Components/salesOrder/SalesOrder";
 import React from "react";
 
 function App() {

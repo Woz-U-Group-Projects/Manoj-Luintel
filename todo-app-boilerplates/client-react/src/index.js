@@ -7,11 +7,11 @@ import {
     Route, Switch
 } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
-import Header from "./Components/Header";
+import Header from "./Components/commons/Header";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Product from "./Components/Product";
-import PurchaseOrder from "./Components/PurchaseOrder";
-import SalesOrder from "./Components/SalesOrder";
+import Product from "./Components/product/Product";
+import PurchaseOrder from "./Components/purchaseOrder/PurchaseOrder";
+import SalesOrder from "./Components/salesOrder/SalesOrder";
 
 ReactDOM.render(
   <React.StrictMode>

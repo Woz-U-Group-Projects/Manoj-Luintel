@@ -3,7 +3,7 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import {Button, Form, Modal, Table} from "react-bootstrap";
 import axios from "axios";
-import CustomSpinner from "./ui/CustomSpinner";
+import CustomSpinner from "../CustomComponents/CustomSpinner";
 
 const MyComponent = (props) => {
     const [showUpdate, setShowUpdate] = useState(false);
@@ -69,7 +69,7 @@ const MyComponent = (props) => {
                 <tbody>
                 { props.products.map((product, i) => (
                     <tr key={product.id}>
-                        <td>{product.id}</td>
+                        <td>{i+1}</td>
                         <td>{product.name}</td>
                         <td>{product.code}</td>
                         <td>{product.costPrice}</td>

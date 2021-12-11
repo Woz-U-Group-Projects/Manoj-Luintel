@@ -1,28 +1,22 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
 import axios from "axios";
 import ProductTable from "./ProductTable";
-import {Button, Form, Modal} from "react-bootstrap";
-import CustomSpinner from "./ui/CustomSpinner";
+import {Button, Col, Container, Form, Modal, Row, Stack} from "react-bootstrap";
+import CustomSpinner from "../CustomComponents/CustomSpinner";
 
-const Product = (url, config) => {
+const Product = () => {
     const [response, setResponse] = useState();
     const [error, setError] = useState();
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
-    const [showUpdate, setShowUpdate] = useState(false);
-
-    let product = {
-        id: null,
+    const[product,setProduct] = useState({
         name :'',
         code :"",
         costPrice : 0,
         sellingPrice :0,
         description :"",
         unitsInStock :0,
-        lowStockThreshold: 0,
-
-    }
+        lowStockThreshold: 0});
 
     useEffect(async () => {
         await axios.get("http://localhost:9000/inv/products")
@@ -30,10 +24,6 @@ const Product = (url, config) => {
             .catch(error => setError(error));
             setLoading(false);
     },[loading]);
-
-    const handleAddProduct= ()=>{
-            setShow(true);
-    };
 
     const handleSubmit=async () => {
         setLoading(true);
@@ -44,41 +34,17 @@ const Product = (url, config) => {
             setShow(false);})
     };
 
-    const handleChangeName=(e) =>{
-        product.name = e.target.value;
-    };
-
-    const handleChangeCode=(e) =>{
-        product.code = e.target.value;
-    };
-
-    const handleChangeCp=(e) =>{
-        product.costPrice = Number(e.target.value);
-
-    };
-
-    const handleChangeLowStock=(e) =>{
-        product.lowStockThreshold = Number(e.target.value);
-
-
-    };
-
-    const handleChangeSp=(e) =>{
-        product.sellingPrice = Number(e.target.value);
-
-    };
-
-    const handleChangeStock=(e) =>{
-        product.unitsInStock = Number(e.target.value);
-
-    };
-
-    const handleChangeDescription=(e) =>{
-        product.description = e.target.value;
-
+    const handleChange= (e) =>{
+        const{id,value} = e.target;
+        setProduct(prevState => ({
+            ...prevState,
+            [id]: value
+        }));
     };
 
     const handleClose = () => setShow(false);
+    const handleAddProduct=()=> setShow(true);
+    const handleUpdateCallBack =() => setLoading(true);
 
     const handleDeleteCallBack =async (product) => {
         setLoading(true);
@@ -89,16 +55,21 @@ const Product = (url, config) => {
             });
     };
 
-    const handleUpdateCallBack =() => {
-        setLoading(true);
-    };
+
 
     return (
         <>
-            <div>
+            <Container fluid>
+            <Stack>
                 <h1>Product List</h1>
-                <Button variant="primary" onClick={handleAddProduct}>Add Product</Button>{' '}
-            </div>
+                <Row>
+                    <Col />
+                    <Col>
+                        <Button variant="primary" onClick={handleAddProduct}>Add Product</Button>{' '}
+                    </Col>
+                </Row>
+
+            </Stack>
         <ProductTable products ={response} callBackDelete={handleDeleteCallBack} handleUpdateCallBack={handleUpdateCallBack}/>
 
             <Modal show={show} onHide={handleClose}>
@@ -110,37 +81,37 @@ const Product = (url, config) => {
                     <Form>
                         <Form.Group className="mb-3" controlId="name">
                             <Form.Label>Product Name</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Product Name" onChange={handleChangeName} />
+                            <Form.Control type="text" placeholder="Enter Product Name" onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="code">
                             <Form.Label>Product Code</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Code" onChange={handleChangeCode} />
+                            <Form.Control type="text" placeholder="Enter Code" onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="costPrice">
                             <Form.Label>Cost Price</Form.Label>
-                            <Form.Control type="number" placeholder="Enter Cost price" onChange={handleChangeCp} />
+                            <Form.Control type="number" placeholder="Enter Cost price" onChange={handleChange} />
                         </Form.Group>
 
 
                         <Form.Group className="mb-3" controlId="sellingPrice">
                             <Form.Label>Selling Price</Form.Label>
-                            <Form.Control type="number" placeholder="Enter Selling price" onChange={handleChangeSp} />
+                            <Form.Control type="number" placeholder="Enter Selling price" onChange={handleChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="unitsInStock">
                             <Form.Label>Stock</Form.Label>
-                            <Form.Control type="number" placeholder="Enter current stock" onChange={handleChangeStock} />
+                            <Form.Control type="number" placeholder="Enter current stock" onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="lowStockThreshold">
                             <Form.Label>Low stock Threshold</Form.Label>
-                            <Form.Control type="number" placeholder="Enter low stock threshold" onChange={handleChangeLowStock} />
+                            <Form.Control type="number" placeholder="Enter low stock threshold" onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="desc">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Description" onChange={handleChangeDescription} />
+                            <Form.Control type="text" placeholder="Enter Description" onChange={handleChange} />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -153,6 +124,7 @@ const Product = (url, config) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            </Container>
         </>
     );
 };
