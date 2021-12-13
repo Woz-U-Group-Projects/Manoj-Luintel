@@ -6,8 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.List;
 
 @Table(name = "product")
 @Entity
@@ -27,6 +30,9 @@ public class Product {
     private Integer lowStockThreshold;
     private boolean batchable = false;
     private String code;
+
+    /*@OneToMany(mappedBy = "product")
+    private List<PurchaseOrderProduct> purchaseOrderProducts;*/
 
     public Long getId() {
         return id;
@@ -135,4 +141,13 @@ public class Product {
         this.code = code;
         return this;
     }
+
+  /*  public List<PurchaseOrderProduct> getPurchaseOrderProducts() {
+        return purchaseOrderProducts;
+    }
+
+    public Product setPurchaseOrderProducts(List<PurchaseOrderProduct> purchaseOrderProducts) {
+        this.purchaseOrderProducts = purchaseOrderProducts;
+        return this;
+    }*/
 }

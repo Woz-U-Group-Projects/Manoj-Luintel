@@ -1,4 +1,4 @@
-package com.example.groupproject.controllers;
+package com.example.groupproject.controllers.product;
 
 import com.example.groupproject.dto.ProductDto;
 import com.example.groupproject.models.Product;
