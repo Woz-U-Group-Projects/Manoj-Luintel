@@ -14,6 +14,7 @@ public class PurchaseOrderModel {
     private LocalDate receivedDate;
     private PurchaseOrderStatus status;
     private List<Product> products;
+    private int totalCost;
 
     public Long getId() {
         return id;
@@ -66,6 +67,15 @@ public class PurchaseOrderModel {
 
     public PurchaseOrderModel setProducts(List<Product> products) {
         this.products = products;
+        return this;
+    }
+
+    public int getTotalCost() {
+        return totalCost;
+    }
+
+    public PurchaseOrderModel setTotalCost(int totalCost) {
+        this.totalCost = totalCost;
         return this;
     }
 }

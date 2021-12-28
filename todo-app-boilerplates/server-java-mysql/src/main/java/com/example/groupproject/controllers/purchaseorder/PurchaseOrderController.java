@@ -55,5 +55,15 @@ public class PurchaseOrderController {
             return LocalResponse.configure(purchaseOrderService.changeStatus(purchaseOrderId,status));
     }
 
+    @PutMapping("/purchase-order-complete")
+    public ResponseEntity<?> completeOrder(@RequestParam int id){
+        return LocalResponse.configure(purchaseOrderService.completeOrder(id));
+    }
+
+    @PutMapping("/purchase-order-cancel")
+    public ResponseEntity<?> cancelOrder(@RequestParam int id){
+        return LocalResponse.configure(purchaseOrderService.cancelOrder(id));
+    }
+
 
 }

@@ -1,5 +1,7 @@
-package com.example.groupproject.models;
+package com.example.groupproject.models.sales;
 
+import com.example.groupproject.models.Product;
+import com.example.groupproject.models.PurchaseOrder;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.CascadeType;
@@ -12,9 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Table(name = "purchase_order_product")
+@Table(name = "sales_order_product")
 @Entity
-public class PurchaseOrderProduct {
+public class SalesOrderProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -25,10 +27,10 @@ public class PurchaseOrderProduct {
     private Product product;
     @JsonIgnoreProperties({"product","purchaseOrder"})
     @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.MERGE})
-    @JoinColumn(name = "purchaser_order_id")
-    private PurchaseOrder purchaseOrder;
+    @JoinColumn(name = "sales_order_id")
+    private SalesOrder salesOrder;
     private int units;
-    private int cost;
+    private Double cost;
 
     public Long getId() {
         return id;
@@ -42,17 +44,17 @@ public class PurchaseOrderProduct {
         return product;
     }
 
-    public PurchaseOrderProduct setProduct(Product product) {
+    public SalesOrderProduct setProduct(Product product) {
         this.product = product;
         return this;
     }
 
-    public PurchaseOrder getPurchaseOrder() {
-        return purchaseOrder;
+    public SalesOrder getSalesOrder() {
+        return salesOrder;
     }
 
-    public PurchaseOrderProduct setPurchaseOrder(PurchaseOrder purchaseOrder) {
-        this.purchaseOrder = purchaseOrder;
+    public SalesOrderProduct setSalesOrder(SalesOrder salesOrder) {
+        this.salesOrder = salesOrder;
         return this;
     }
 
@@ -60,16 +62,16 @@ public class PurchaseOrderProduct {
         return units;
     }
 
-    public PurchaseOrderProduct setUnits(int units) {
+    public SalesOrderProduct setUnits(int units) {
         this.units = units;
         return this;
     }
 
-    public int getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public PurchaseOrderProduct setCost(int cost) {
+    public SalesOrderProduct setCost(Double cost) {
         this.cost = cost;
         return this;
     }

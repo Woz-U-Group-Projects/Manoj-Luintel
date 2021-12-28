@@ -23,4 +23,7 @@ public interface PurchaseOrderService {
     PurchaseOrderModel changeStatus(long id,PurchaseOrderStatus status);
 
 
+    PurchaseOrderModel completeOrder(int id);
+
+    PurchaseOrderModel cancelOrder(int id);
 }

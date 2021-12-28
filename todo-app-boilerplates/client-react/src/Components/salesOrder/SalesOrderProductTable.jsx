@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {Alert, Button, Container, Dropdown, Form, Modal, Table} from "react-bootstrap";
+import React from 'react';
+import {Alert, Button, Container, Form, Modal, Table} from "react-bootstrap";
 import CustomSpinner from "../CustomComponents/CustomSpinner";
 import {usePurchaseOrderTable} from "../../hooks/PurchaseOrder/usePurchaseOrderTable";
+import {useSalesOrderProductTable} from "../../hooks/SalesOrder/useSalesOrderProductTable";
 
-const PurchaseOrderProductTable = (props) => {
+const SalesOrderProductTable = (props) => {
     const {
         orderProducts,
         show,
@@ -16,7 +17,7 @@ const PurchaseOrderProductTable = (props) => {
         handleAddProduct,
         loading,
         message
-    } = usePurchaseOrderTable(props)
+    } = useSalesOrderProductTable(props)
     return (
         <>
             {message != undefined && <Alert variant={"danger"} dismissible>{message}</Alert>}
@@ -61,8 +62,8 @@ const PurchaseOrderProductTable = (props) => {
                         <Form.Group className="mb-3" controlId="id">
                             <Form.Control type="number" hidden={true} onChange={handleChange}/>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="purchaseOrderId">
-                            <Form.Control type="number" hidden={true} value={props.purchaseOrderId}
+                        <Form.Group className="mb-3" controlId="salesOrderId">
+                            <Form.Control type="number" hidden={true} value={props.salesOrderId}
                                           onChange={handleChange}/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="productId">
@@ -100,4 +101,4 @@ const PurchaseOrderProductTable = (props) => {
     );
 };
 
-export default PurchaseOrderProductTable;
+export default SalesOrderProductTable;

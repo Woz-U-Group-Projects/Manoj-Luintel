@@ -1,4 +1,4 @@
-package com.example.groupproject.models;
+package com.example.groupproject.models.sales;
 
 
 import javax.persistence.Column;
@@ -8,15 +8,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-@Table(name = "purchase_order")
+@Table(name = "sales_order")
 @Entity
-public class PurchaseOrder {
+public class SalesOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -26,15 +23,12 @@ public class PurchaseOrder {
     @Column(nullable = false)
     private LocalDate orderDate;
     @Column(nullable = false)
-    private LocalDate receivedDate;
+    private LocalDate shippingDate;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private PurchaseOrderStatus status;
-    /*@OneToMany(mappedBy = "purchaseOrder")
-    private List<PurchaseOrderProduct> purchaseOrderProducts = new ArrayList<>();*/
+    private SalesOrderStatus status;
     @Column(nullable = false)
-    private int totalCost;
-
+    private double totalCost;
 
 
     public Long getId() {
@@ -49,7 +43,7 @@ public class PurchaseOrder {
         return name;
     }
 
-    public PurchaseOrder setName(String name) {
+    public SalesOrder setName(String name) {
         this.name = name;
         return this;
     }
@@ -58,44 +52,35 @@ public class PurchaseOrder {
         return orderDate;
     }
 
-    public PurchaseOrder setOrderDate(LocalDate orderDate) {
+    public SalesOrder setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
         return this;
     }
 
-    public LocalDate getReceivedDate() {
-        return receivedDate;
+    public LocalDate getShippingDate() {
+        return shippingDate;
     }
 
-    public PurchaseOrder setReceivedDate(LocalDate receivedDate) {
-        this.receivedDate = receivedDate;
+    public SalesOrder setShippingDate(LocalDate shippingDate) {
+        this.shippingDate = shippingDate;
         return this;
     }
 
-    public PurchaseOrderStatus getStatus() {
+    public SalesOrderStatus getStatus() {
         return status;
     }
 
-    public PurchaseOrder setStatus(PurchaseOrderStatus status) {
+    public SalesOrder setStatus(SalesOrderStatus status) {
         this.status = status;
         return this;
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 
-    public PurchaseOrder setTotalCost(int totalCost) {
+    public SalesOrder setTotalCost(double totalCost) {
         this.totalCost = totalCost;
         return this;
     }
-
-    /*  public List<PurchaseOrderProduct> getPurchaseOrderProducts() {
-        return purchaseOrderProducts;
-    }
-
-    public PurchaseOrder setPurchaseOrderProducts(List<PurchaseOrderProduct> purchaseOrderProducts) {
-        this.purchaseOrderProducts = purchaseOrderProducts;
-        return this;
-    }*/
 }

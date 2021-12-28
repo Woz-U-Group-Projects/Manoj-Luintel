@@ -11,6 +11,8 @@ public class PurchaseOrderProductDto {
     private Long productId;
     @Positive(message = "units must be positive")
     private int units;
+    @Positive(message = "cost must be positive")
+    private int cost;
 
     public long getId() {
         return id;
@@ -45,6 +47,15 @@ public class PurchaseOrderProductDto {
 
     public PurchaseOrderProductDto setUnits(int units) {
         this.units = units;
+        return this;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public PurchaseOrderProductDto setCost(int cost) {
+        this.cost = cost;
         return this;
     }
 }

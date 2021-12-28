@@ -1,4 +1,4 @@
-package com.example.groupproject.controllers;
+package com.example.groupproject.controllers.purchaseorder;
 
 import com.example.groupproject.dto.PurchaseOrderDto;
 import com.example.groupproject.dto.PurchaseOrderProductDto;

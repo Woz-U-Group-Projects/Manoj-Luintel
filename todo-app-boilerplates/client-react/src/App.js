@@ -6,6 +6,7 @@ import PurchaseOrder from "./Components/purchaseOrder/PurchaseOrder";
 import SalesOrder from "./Components/salesOrder/SalesOrder";
 import React from "react";
 import PurchaseOrderDetail from "./Components/purchaseOrder/PurchaseOrderDetail";
+import SalesOrderDetail from "./Components/salesOrder/SalesOrderDetail";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/purchaseOrder" component={PurchaseOrder}/>
         <Route path="/salesOrder" component={SalesOrder}/>
         <Route path="/purchaseOrderDetail" component={PurchaseOrderDetail}/>
+        <Route path="/salesOrderDetail" component={SalesOrderDetail}/>
       </>
   );
 }

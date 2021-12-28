@@ -8,8 +8,8 @@ import com.example.groupproject.models.PurchaseOrder;
 import com.example.groupproject.models.PurchaseOrderModel;
 import com.example.groupproject.models.PurchaseOrderProduct;
 import com.example.groupproject.models.PurchaseOrderStatus;
-import com.example.groupproject.repository.PurchaseOrderProductRepository;
-import com.example.groupproject.repository.PurchaseOrderRepository;
+import com.example.groupproject.repository.purchase.PurchaseOrderProductRepository;
+import com.example.groupproject.repository.purchase.PurchaseOrderRepository;
 import com.example.groupproject.repository.product.ProductRepository;
 import com.example.groupproject.service.PurchaseOrderService;
 import org.springframework.stereotype.Service;
@@ -38,8 +38,6 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         purchaseOrder.setStatus(PurchaseOrderStatus.Created);
         return entityToModel(purchaseOrderRepository.save(purchaseOrder));
     }
-
-
 
     @Override
     public PurchaseOrderModel update(PurchaseOrderDto purchaseOrderDto) {
@@ -85,6 +83,24 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         return entityToModel(purchaseOrderRepository.save(purchaseOrder));
     }
 
+    @Override
+    public PurchaseOrderModel completeOrder(int id) {
+        PurchaseOrder purchaseOrder = getById(id);
+
+        Assert.isTrue(purchaseOrder.getStatus().equals(PurchaseOrderStatus.Created),"Cannot complete order. Status must be created.");
+        recalculateStock(purchaseOrder);
+        purchaseOrder.setStatus(PurchaseOrderStatus.Completed);
+        return entityToModel(purchaseOrderRepository.save(purchaseOrder));
+    }
+
+    @Override
+    public PurchaseOrderModel cancelOrder(int id) {
+        PurchaseOrder purchaseOrder = getById(id);
+        Assert.isTrue(purchaseOrder.getStatus().equals(PurchaseOrderStatus.Created),"Cannot Cancel order. Status must be created.");
+        purchaseOrder.setStatus(PurchaseOrderStatus.Cancelled);
+        return entityToModel(purchaseOrderRepository.save(purchaseOrder));
+    }
+
     private void recalculateStock(PurchaseOrder purchaseOrder) {
         List<PurchaseOrderProduct> purchaseOrderProducts = purchaseOrderProductRepository.findAllByPurchaseOrder(purchaseOrder);
         purchaseOrderProducts.forEach(purchaseOrderProduct -> {
@@ -120,7 +136,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                 .setId(purchaseOrder.getId())
                 .setStatus(purchaseOrder.getStatus())
                 .setOrderDate(purchaseOrder.getOrderDate())
-                .setReceivedDate(purchaseOrder.getReceivedDate());
+                .setReceivedDate(purchaseOrder.getReceivedDate())
+                .setTotalCost(purchaseOrder.getTotalCost());
     }
 
 

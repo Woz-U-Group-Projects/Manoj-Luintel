@@ -1,9 +1,9 @@
 import React from 'react';
-import {Button, Table} from "react-bootstrap";
+import PropTypes from 'prop-types';
+import {Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-const PurchaseOrderTable = (props) => {
-
+const SalesOrderTable = (props) => {
     if(!props.orders ) return null;
     return (
         <>
@@ -13,7 +13,7 @@ const PurchaseOrderTable = (props) => {
                     <th>#Id</th>
                     <th>Name</th>
                     <th>Order Date</th>
-                    <th>Received Date</th>
+                    <th>Shipping Date</th>
                     <th>Status</th>
                 </tr>
                 </thead>
@@ -21,16 +21,17 @@ const PurchaseOrderTable = (props) => {
                 { props.orders.map((order, i) => (
                     <tr key={order.id}>
                         <td>{i+1}</td>
-                        <td><Link to={`/purchaseOrderDetail?id=${order.id}`} >{order.name}</Link></td>
+                        <td><Link to={`/salesOrderDetail?id=${order.id}`} >{order.name}</Link></td>
                         <td>{order.orderDate}</td>
-                        <td>{order.receivedDate}</td>
+                        <td>{order.shippingDate}</td>
                         <td>{order.status}</td>
                     </tr>
                 ))}
                 </tbody>
             </Table>
-            </>
+        </>
     );
 };
 
-export default PurchaseOrderTable;
+
+export default SalesOrderTable;
